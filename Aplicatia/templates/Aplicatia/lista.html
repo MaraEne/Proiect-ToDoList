@@ -1,0 +1,96 @@
+<title>To Do List-Main Page</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+
+    body{
+        background-color: oldlace;
+    }
+
+    input{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
+
+    input::placeholder {
+      color: #d3d3d3;
+    }
+
+    .center-column{
+        width:600px;
+        margin: 20px auto;
+        padding:20px;
+        background-color: #fff;
+        border-radius: 3px;
+        box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+    }
+
+    .btn-danger{
+        background-color: #76bd26;
+        border-color: #24b307;
+    }
+
+    .btn-danger:hover{
+        background-color: green;
+        border-color: #24b307;
+        color: white;
+    }
+
+    .btn-info{
+        background-color: rebeccapurple;
+        border-color: blueviolet;
+    }
+
+    .btn-info:hover{
+        background-color: mediumpurple;
+        border-color: blueviolet;
+    }
+
+    .btn-light:hover{
+        background-color: red;
+        border-color: darkred;
+        color: white;
+    }
+
+</style>
+
+<div class="center-column">
+
+<h1>Buna! ☺ </h1>
+<h3>Ai urmatoarele obiective:</h3>
+<p></p>
+{% for task in Aplicatia %}
+    <div class="row">
+        <div class="col-2">
+            <a class="btn btn-sm btn-danger" href="{% url 'update_task' task.id %}">Update</a>
+        </div>
+
+        <div class="col-5">
+            {% if task.completat == True %}
+                <strike>{{ task }}</strike>
+            {% else %}
+                <span>{{ task }}</span>
+            {% endif %}
+        </div>
+
+        <div class="col-2">
+            <a class="btn btn-sm btn-light" href="{% url 'delete' task.id %}">Sterge</a>
+        </div>
+
+    </div>
+
+{% endfor %}
+<p></p>
+
+<h5>Adauga alte obiective</h5>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{ form.titlu}}
+    <input class="btn btn-info" type="Submit" name="Create task">
+</form>
+
+
+</div>
